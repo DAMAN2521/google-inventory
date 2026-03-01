@@ -20,7 +20,10 @@ app.use(helmet({
     crossOriginResourcePolicy: false,
     contentSecurityPolicy: false,
 }));
-app.use(cors());
+app.use(cors({
+    origin: '*', // We'll update this once the frontend is deployed
+    credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 

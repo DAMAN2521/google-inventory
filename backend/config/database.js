@@ -3,16 +3,16 @@ const { Sequelize } = require('sequelize');
 
 console.log('Connecting to database:', process.env.DB_NAME);
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'inventory_db',
-  process.env.DB_USER || 'postgres',
-  process.env.DB_PASS || 'postgres',
-  {
-    dialect: 'sqlite',
-    storage: './inventory.sqlite',
-    logging: false, // Set to console.log to see SQL queries
-  }
-);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+  logging: false, // Set to console.log to see SQL queries
+});
 
 const testConnection = async () => {
   try {
